@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Auth Application</string>
+    <string name="enter_email">Enter email</string>
+    <string name="password">Password</string>
+    <string name="renter_password">Renter Password</string>
+    <string name="register">Register</string>
+    <string name="or">or</string>
+    <string name="signup_with_phone_number">SignUp with Phone Number</string>
+</resources>
