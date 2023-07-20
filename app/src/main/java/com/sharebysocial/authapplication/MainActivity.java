@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +47,15 @@ public class MainActivity extends AppCompatActivity {
         rePassword = findViewById(R.id.renterPasswordId);
         signUpBtn = findViewById(R.id.signUpRegisterBtnId);
         registerBtn(); // When click on register btn
+        alreadyHaveAccount();
+    }
+
+    private void alreadyHaveAccount() {
+        TextView AlreadyAccountBtn = findViewById(R.id.SignupAlreadyAccountId);
+        AlreadyAccountBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void registerBtn() {
@@ -76,7 +86,16 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
+        if (currentUser!=null){
+            reload();
+        }
 
+    }
+
+    private void reload() {
+        Intent intent = new Intent(this,HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void createAccount(String email, String password) {
