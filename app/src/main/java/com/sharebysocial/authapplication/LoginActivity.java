@@ -17,14 +17,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sharebysocial.authapplication.Fragment.ForgotPassword;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     EditText loginEmail, loginPassword;
     CardView loginBtn;
+
     FirebaseAuth mAuth;
-    TextView createAccount;
+    TextView createAccount, forgotPassword;
     String TAG = "loginActivityPage";
 
     @Override
@@ -35,10 +37,19 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.LoginPasswordId);
         loginBtn = findViewById(R.id.LoginRegisterBtnId);
         createAccount = findViewById(R.id.LoginCreateNewAccountId);
+        forgotPassword = findViewById(R.id.logInforgotPasswordId);
         mAuth = FirebaseAuth.getInstance();
         clickLoginBtn(); // when click on login button
         clickCreatBtn();
+        forgotButton();
 
+    }
+
+    private void forgotButton() {
+        forgotPassword.setOnClickListener(v -> {
+            ForgotPassword bottomSheetFragment = new ForgotPassword();
+            bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+        });
     }
 
     private void clickCreatBtn() {
