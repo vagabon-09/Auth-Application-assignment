@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +17,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
+    FirebaseUser currentUser;
     String TAG;
     CardView signUpBtn;
     EditText email, password, rePassword;
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         rePassword = findViewById(R.id.renterPasswordId);
         signUpBtn = findViewById(R.id.signUpRegisterBtnId);
         registerBtn(); // When click on register btn
-
     }
 
     private void registerBtn() {
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
 
     }
 
@@ -83,15 +87,23 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
+                            currentUser = mAuth.getCurrentUser();
+                            assert currentUser != null;
+                            currentUser.sendEmailVerification().addOnSuccessListener(unused -> Toast.makeText(MainActivity.this, "Successfully verification email send to your mail.", Toast.LENGTH_SHORT).show());
+                            updateUI(currentUser);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
+    }
+
+    public void updateUI(FirebaseUser user) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
