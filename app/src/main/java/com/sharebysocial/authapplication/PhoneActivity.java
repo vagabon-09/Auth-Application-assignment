@@ -3,6 +3,7 @@ package com.sharebysocial.authapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -25,9 +26,7 @@ public class PhoneActivity extends AppCompatActivity {
         getOtp = findViewById(R.id.getOtpBtn);
         ccp.registerCarrierNumberEditText(numPh);
         alreadyAccount(); // Already have account bth
-        getOtpBtn();
-
-
+        getOtpBtn(); // when clicked on get otp button
     }
 
     private void getOtpBtn() {
@@ -35,6 +34,10 @@ public class PhoneActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), OTPActivity.class);
             intent.putExtra("mobileNumber", ccp.getFullNumberWithPlus().replace(" ", ""));
             startActivity(intent);
+            SharedPreferences preferences = getSharedPreferences("signingMethod", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("loginMethod", "phone");
+            editor.apply();
             finish();
         });
     }

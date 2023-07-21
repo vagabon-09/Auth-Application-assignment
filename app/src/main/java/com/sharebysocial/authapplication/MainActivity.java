@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private void signWithPhone() {
         singUpPhoneNumber = findViewById(R.id.signupCallId);
         singUpPhoneNumber.setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), PhoneActivity.class);
             startActivity(intent);
             finish();
@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
                             currentUser = mAuth.getCurrentUser();
                             assert currentUser != null;
                             currentUser.sendEmailVerification().addOnSuccessListener(unused -> Toast.makeText(MainActivity.this, "Successfully verification email send to your mail.", Toast.LENGTH_SHORT).show());
+                            SharedPreferences preferences = getSharedPreferences("signingMethod", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("loginMethod", "email");
+                            editor.apply();
                             updateUI(currentUser);
 
                         } else {

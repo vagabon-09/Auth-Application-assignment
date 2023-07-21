@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".OTPActivity">
 
+    <TextView
+        android:textSize="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter OTP"
+        app:layout_constraintBottom_toTopOf="@+id/otp_inputId"
+        app:layout_constraintEnd_toEndOf="@+id/otp_inputId"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/otp_inputId"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.878" />
+
     <EditText
         android:id="@+id/otp_inputId"
         android:layout_width="match_parent"
@@ -24,6 +36,7 @@
         app:layout_constraintVertical_bias="0.415" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/verifyBtnId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,5 +47,30 @@
         app:layout_constraintStart_toStartOf="@+id/otp_inputId"
         app:layout_constraintTop_toBottomOf="@+id/otp_inputId"
         app:layout_constraintVertical_bias="0.128" />
+
+    <ProgressBar
+        android:id="@+id/circularProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/otp_inputId"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/otp_inputId"
+        app:layout_constraintTop_toBottomOf="@+id/otp_inputId"
+        app:layout_constraintVertical_bias="0.128" />
+
+    <TextView
+        android:id="@+id/requestOtpId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Again Request OTP"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/verifyBtnId"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@+id/verifyBtnId"
+        app:layout_constraintTop_toBottomOf="@+id/verifyBtnId"
+        app:layout_constraintVertical_bias="0.178" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

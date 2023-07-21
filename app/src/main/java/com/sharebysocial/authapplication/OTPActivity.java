@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +30,9 @@ public class OTPActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     EditText otpInput;
     String numTemp = "";
+    TextView requestOTP;
+    ProgressBar progressBar;
+    Button otpVerify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +43,24 @@ public class OTPActivity extends AppCompatActivity {
         String mobileNumber = intent.getStringExtra("mobileNumber");
         Log.d("mobileNumber", "onCreate: " + mobileNumber);
         mAuth = FirebaseAuth.getInstance();
-        sendOtp(mobileNumber);
         manualLogin();
+        requestOTP = findViewById(R.id.requestOtpId);
+        progressBar = findViewById(R.id.circularProgressBar);
+        getOTP();
+        sendOtp(mobileNumber);
+    }
 
-
+    private void getOTP() {
+        requestOTP.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), PhoneActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void manualLogin() {
 
-        Button otpVerify = findViewById(R.id.verifyBtnId);
+        otpVerify = findViewById(R.id.verifyBtnId);
         otpVerify.setOnClickListener(v -> {
             Log.d("otp", "manualLogin: " + otpInput.getText().toString());
             if (otpInput.getText().toString().equals("") || otpInput.getText().toString().length() < 6) {
@@ -69,6 +84,7 @@ public class OTPActivity extends AppCompatActivity {
 
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                otpVerify.setVisibility(View.VISIBLE);
                                 numTemp = s;
                                 Log.d("tempNum", "onCodeSent: " + numTemp);
                                 super.onCodeSent(s, forceResendingToken);
@@ -101,6 +117,7 @@ public class OTPActivity extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             // Update UI
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            progressBar.setVisibility(View.GONE);
                             startActivity(intent);
                             finish();
 

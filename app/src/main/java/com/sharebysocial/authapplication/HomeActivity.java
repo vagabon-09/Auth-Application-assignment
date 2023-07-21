@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     Button LogoutBtn;
     Button resendEmail;
     FirebaseAuth mAuth;
+    String loginMethod = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,26 @@ public class HomeActivity extends AppCompatActivity {
         emailStatus = findViewById(R.id.home_emailVerificationId);
         LogoutBtn = findViewById(R.id.home_logoutBtn);
         resendEmail = findViewById(R.id.home_emailResendId);
+        checkLoginMethod(); // Checking login method
+        logOutBtn(); //Logout button when clicked
+        checkEmail(); // checking email function
+        ResendEmail(); // Resend verification email
+
+    }
+
+    private void checkLoginMethod() {
+        SharedPreferences preferences = getSharedPreferences("signingMethod", MODE_PRIVATE);
+        loginMethod = preferences.getString("loginMethod", "");
+        Log.d("loginMethod", "checkLoginMethod: " + loginMethod.toString());
+    }
+
+    private void logOutBtn() {
         LogoutBtn.setOnClickListener(v -> {
             mAuth.signOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
-        checkEmail();
-        ResendEmail();
     }
 
     private void ResendEmail() {
@@ -61,23 +75,25 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void checkEmail() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            user.reload().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    boolean isEmailVerified = user.isEmailVerified();
-                    if (isEmailVerified) {
-                        emailStatus.setText("Email is verified");
-                        resendEmail.setVisibility(View.INVISIBLE);
+        if (loginMethod.equals("email")) {
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                user.reload().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        boolean isEmailVerified = user.isEmailVerified();
+                        if (isEmailVerified) {
+                            emailStatus.setText("Email is verified");
+                            resendEmail.setVisibility(View.INVISIBLE);
+                        } else {
+                            emailStatus.setText("Email is not verified please verify now");
+                            resendEmail.setVisibility(View.VISIBLE);
+                        }
                     } else {
-                        emailStatus.setText("Email is not verified please verify now");
-                        resendEmail.setVisibility(View.VISIBLE);
+                        Log.d("checkEmail", "Error reloading user: " + task.getException());
                     }
-                } else {
-                    Log.d("checkEmail", "Error reloading user: " + task.getException());
-                }
 
-            });
+                });
+            }
         }
 
 
