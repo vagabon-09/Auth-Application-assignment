@@ -67,7 +67,11 @@ public class ForgotPassword extends BottomSheetDialogFragment {
 
         sendBtn.setOnClickListener(v -> {
             String f_email = email.getText().toString();
-            forgotPassword(f_email);
+            if (f_email.equals("")) {
+                Toast.makeText(getContext(), "Enter your email to forgot password", Toast.LENGTH_SHORT).show();
+            } else {
+                forgotPassword(f_email);
+            }
         });
         return view;
     }

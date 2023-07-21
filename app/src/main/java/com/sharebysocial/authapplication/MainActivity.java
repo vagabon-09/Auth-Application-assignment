@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     String TAG;
     CardView signUpBtn;
     EditText email, password, rePassword;
+    LinearLayout singUpPhoneNumber;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,18 @@ public class MainActivity extends AppCompatActivity {
         rePassword = findViewById(R.id.renterPasswordId);
         signUpBtn = findViewById(R.id.signUpRegisterBtnId);
         registerBtn(); // When click on register btn
-        alreadyHaveAccount();
+        alreadyHaveAccount(); // when click on already click button
+        signWithPhone();
+    }
+
+    private void signWithPhone() {
+        singUpPhoneNumber = findViewById(R.id.signupCallId);
+        singUpPhoneNumber.setOnClickListener(v -> {
+            Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), PhoneActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void alreadyHaveAccount() {
