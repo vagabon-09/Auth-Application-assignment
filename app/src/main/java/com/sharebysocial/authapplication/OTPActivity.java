@@ -85,6 +85,7 @@ public class OTPActivity extends AppCompatActivity {
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                                 otpVerify.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
                                 numTemp = s;
                                 Log.d("tempNum", "onCodeSent: " + numTemp);
                                 super.onCodeSent(s, forceResendingToken);

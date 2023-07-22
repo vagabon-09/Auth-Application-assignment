@@ -7,10 +7,11 @@
     tools:context=".PhoneActivity">
 
     <ImageView
+        android:layout_height="@dimen/_120sdp"
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:src="@drawable/signup"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

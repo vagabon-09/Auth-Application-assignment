@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
 
@@ -31,14 +32,18 @@ public class PhoneActivity extends AppCompatActivity {
 
     private void getOtpBtn() {
         getOtp.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), OTPActivity.class);
-            intent.putExtra("mobileNumber", ccp.getFullNumberWithPlus().replace(" ", ""));
-            startActivity(intent);
-            SharedPreferences preferences = getSharedPreferences("signingMethod", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("loginMethod", "phone");
-            editor.apply();
-            finish();
+            if (!numPh.getText().toString().equals("")) {
+                Intent intent = new Intent(getApplicationContext(), OTPActivity.class);
+                intent.putExtra("mobileNumber", ccp.getFullNumberWithPlus().replace(" ", ""));
+                startActivity(intent);
+                SharedPreferences preferences = getSharedPreferences("signingMethod", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("loginMethod", "phone");
+                editor.apply();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Please enter phone number first then try again", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

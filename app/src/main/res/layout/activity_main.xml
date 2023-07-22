@@ -20,7 +20,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +38,7 @@
         <EditText
             android:id="@+id/signUpEmailId"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_20sdp"
@@ -47,11 +46,11 @@
             android:background="@drawable/custom_input_style"
             android:hint="assignment@gmail.com"
             android:inputType="textEmailAddress"
-            android:padding="@dimen/_5sdp"
             android:paddingStart="@dimen/_20sdp"
-
             android:paddingEnd="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_5sdp" />
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+           />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +64,7 @@
         <EditText
             android:id="@+id/signUpPasswordId"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_20sdp"
@@ -73,10 +72,11 @@
             android:background="@drawable/custom_input_style"
             android:hint="*********"
             android:inputType="textPassword"
-            android:paddingStart="@dimen/_20sdp"
-            android:paddingTop="@dimen/_10sdp"
             android:paddingEnd="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_5sdp" />
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+           android:paddingStart="@dimen/_20sdp" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,17 +90,17 @@
         <EditText
             android:id="@+id/renterPasswordId"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:background="@drawable/custom_input_style"
             android:hint="**********"
             android:inputType="textPassword"
-            android:paddingStart="@dimen/_20sdp"
-            android:paddingTop="@dimen/_10sdp"
             android:paddingEnd="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_5sdp" />
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_20sdp" />
 
         <TextView
             android:id="@+id/SignupAlreadyAccountId"

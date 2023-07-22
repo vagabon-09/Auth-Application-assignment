@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     CardView loginBtn;
 
     FirebaseAuth mAuth;
-    TextView createAccount, forgotPassword;
+    TextView createAccount, forgotPassword,loginWithPhone;
     String TAG = "loginActivityPage";
 
     @Override
@@ -39,11 +39,25 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.LoginRegisterBtnId);
         createAccount = findViewById(R.id.LoginCreateNewAccountId);
         forgotPassword = findViewById(R.id.logInforgotPasswordId);
+
         mAuth = FirebaseAuth.getInstance();
         clickLoginBtn(); // when click on login button
         clickCreatBtn();
         forgotButton();
+        loginPhoneNumber();
 
+    }
+
+    private void loginPhoneNumber() {
+        loginWithPhone = findViewById(R.id.LoginWithPhoneNumberId);
+        loginWithPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PhoneActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void forgotButton() {
